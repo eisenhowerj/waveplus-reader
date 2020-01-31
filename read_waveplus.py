@@ -41,9 +41,6 @@ INFLUXDB_PORT = '8086'
 MAC_ADDR = 'A4:DA:32:27:6A:34'
 SAMPLE_PERIOD = 10 # Seconds between polls
 
-SerialNumber = int(sys.argv[1])
-SAMPLE_PERIOD = int(sys.argv[2])
-
 # ===============================
 # Class WavePlus
 # ===============================
@@ -54,7 +51,7 @@ class WavePlus():
         self.periph        = None
         self.curr_val_char = None
         self.MacAddr       = MAC_ADDR
-        self.uuid          = UUID("b42e2a68-ade7-11e4-89d3-123b93f75cba")
+        self.uuid          = UUID("b42e4dcc-ade7-11e4-89d3-123b93f75cba")
 
     def connect(self):
         # Connect to device
@@ -121,27 +118,31 @@ class Sensors():
 
 try:
     #---- Initialize ----#
-    waveplus = WavePlus(MAC_ADDR)
-
-    while True:
-        
-        waveplus.connect()
-        
-        # read values
-        sensors = waveplus.read()
-        
-        # extract
-        humidity     = str(sensors.getValue(SENSOR_IDX_HUMIDITY))             + " " + str(sensors.getUnit(SENSOR_IDX_HUMIDITY))
-        radon_st_avg = str(sensors.getValue(SENSOR_IDX_RADON_SHORT_TERM_AVG)) + " " + str(sensors.getUnit(SENSOR_IDX_RADON_SHORT_TERM_AVG))
-        radon_lt_avg = str(sensors.getValue(SENSOR_IDX_RADON_LONG_TERM_AVG))  + " " + str(sensors.getUnit(SENSOR_IDX_RADON_LONG_TERM_AVG))
-        temperature  = str(sensors.getValue(SENSOR_IDX_TEMPERATURE))          + " " + str(sensors.getUnit(SENSOR_IDX_TEMPERATURE))
-        
-        # Print data
-        data = [humidity, radon_st_avg, radon_lt_avg, temperature]
-        print(data)
-        waveplus.disconnect()
-        
-        time.sleep(SAMPLE_PERIOD)
-            
+    waveplus = WavePlus(MAC_ADDR)        
+    waveplus.connect()
+    
+    # read values
+    sensors = waveplus.read()
+    
+    # extract
+    humidity     = str(sensors.getValue(SENSOR_IDX_HUMIDITY))
+    radon_st_avg = str(sensors.getValue(SENSOR_IDX_RADON_SHORT_TERM_AVG))
+    radon_lt_avg = str(sensors.getValue(SENSOR_IDX_RADON_LONG_TERM_AVG))
+    temperature  = str(sensors.getValue(SENSOR_IDX_TEMPERATURE))
+    
+    # Print data
+    data = [ "humidity"=humidity, "radon_st_avg"=radon_st_avg, radon_lt_avg, temperature]
+    # data.append("humidity={humidity},radon_st_avg={radon_st_avg},radon_lt_avg={id} x={x},y={y},z={z}i {timestamp}"
+    #     .format(humidity=humidity,
+    #             radon_st_avg=radon_st_avg,
+    #             radon_lt_avg=radon_lt_avg,
+    #             x=round(random.random(),4),
+    #             y=round(random.random(),4),
+    #             z=random.randint(0,50),
+    #             timestamp=data_start_time))
+    # client.write_points(data, database=INFLUXDB_DB, time_precision='ms', batch_size=10000, protocol='line')
+    print(data)
+    waveplus.disconnect()
+                
 finally:
     waveplus.disconnect()
