@@ -130,17 +130,15 @@ try:
     radon_lt_avg = str(sensors.getValue(SENSOR_IDX_RADON_LONG_TERM_AVG))
     temperature  = str(sensors.getValue(SENSOR_IDX_TEMPERATURE))
     
-    # Print data
-    data = [ "humidity"=humidity, "radon_st_avg"=radon_st_avg, radon_lt_avg, temperature]
-    # data.append("humidity={humidity},radon_st_avg={radon_st_avg},radon_lt_avg={id} x={x},y={y},z={z}i {timestamp}"
-    #     .format(humidity=humidity,
-    #             radon_st_avg=radon_st_avg,
-    #             radon_lt_avg=radon_lt_avg,
-    #             x=round(random.random(),4),
-    #             y=round(random.random(),4),
-    #             z=random.randint(0,50),
-    #             timestamp=data_start_time))
-    # client.write_points(data, database=INFLUXDB_DB, time_precision='ms', batch_size=10000, protocol='line')
+    data = []
+    data.append(measurement={measurement},humidity={humidity},radon_st_avg={radon_st_avg},radon_lt_avg={radon_lt_avg} temperature={temperature},{timestamp}"
+        .format(measurement="waveplus",
+                humidity=humidity,
+                radon_st_avg=radon_st_avg,
+                radon_lt_avg=radon_lt_avg,
+                temperature=temperature,
+                timestamp=data_start_time))
+    client.write_points(data, database=INFLUXDB_DB, time_precision='ms', batch_size=10000, protocol='line')
     print(data)
     waveplus.disconnect()
                 
