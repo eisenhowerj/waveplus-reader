@@ -35,7 +35,7 @@ from influxdb import InfluxDBClient
 
 INFLUXDB_HOST = '192.168.1.81'
 INFLUXDB_DB = 'wavebtle'
-INFLUXDB_USER = 'wavebtle'
+INFLUXDB_USER = 'wave-btle'
 INFLUXDB_PASS = 'Phoo)chai7'
 INFLUXDB_PORT = '8086'
 MAC_ADDR = 'A4:DA:32:27:6A:34'
