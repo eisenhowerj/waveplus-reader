@@ -138,8 +138,9 @@ try:
                 radon_lt_avg=radon_lt_avg,
                 temperature=temperature,
                 timestamp=data_start_time))
-    client.write_points(data, database=INFLUXDB_DB, time_precision='ms', batch_size=10000, protocol='line')
     print(data)
+    client.write_points(data, database=INFLUXDB_DB, time_precision='ms', batch_size=10000, protocol='line')
+
     waveplus.disconnect()
                 
 finally:
