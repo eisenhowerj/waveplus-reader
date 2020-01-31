@@ -120,6 +120,11 @@ try:
     #---- Initialize ----#
     waveplus = WavePlus(MAC_ADDR)        
     waveplus.connect()
+    #---- Connect to InfluxDB ----#
+    influx_client = InfluxDBClient(host=INFLUXDB_HOST,
+                            port=INFLUXDB_PORT,
+                            username=INFLUXDB_USER,
+                            password=INFLUXDB_PASS)
     
     # read values
     sensors = waveplus.read()
@@ -130,18 +135,17 @@ try:
     radon_lt_avg = str(sensors.getValue(SENSOR_IDX_RADON_LONG_TERM_AVG))
     temperature  = str(sensors.getValue(SENSOR_IDX_TEMPERATURE))
     
-    data_start_time = int(round(time.time() * 1000)
-    
+    data_start_time = int(round(time.time() * 1000))
+
     data = []
-    data.append(measurement={measurement},humidity={humidity},radon_st_avg={radon_st_avg},radon_lt_avg={radon_lt_avg},temperature={temperature} {timestamp}"
+    data.append("{measurement},humidity={humidity},radon_st_avg={radon_st_avg},radon_lt_avg={radon_lt_avg},temperature={temperature}"
         .format(measurement="waveplus",
                 humidity=humidity,
                 radon_st_avg=radon_st_avg,
                 radon_lt_avg=radon_lt_avg,
-                temperature=temperature,
-                timestamp=data_start_time))
+                temperature=temperature))
     print(data)
-    client.write_points(data, database=INFLUXDB_DB, time_precision='ms', batch_size=10000, protocol='line')
+    influx_client.write_points(data, database=INFLUXDB_DB, batch_size=10000, protocol='line')
 
     waveplus.disconnect()
                 
