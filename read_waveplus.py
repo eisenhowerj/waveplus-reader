@@ -133,8 +133,9 @@ try:
     humidity     = str(sensors.getValue(SENSOR_IDX_HUMIDITY))
     radon_st_avg = str(sensors.getValue(SENSOR_IDX_RADON_SHORT_TERM_AVG))
     radon_lt_avg = str(sensors.getValue(SENSOR_IDX_RADON_LONG_TERM_AVG))
-    temperature  = str(sensors.getValue(SENSOR_IDX_TEMPERATURE))
-    
+    temperature_c  = str(sensors.getValue(SENSOR_IDX_TEMPERATURE))
+
+    temperature = 9.0/5.0 * temperature_c + 32
     data_start_time = int(round(time.time() * 1000))
 
     data = []
