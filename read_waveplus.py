@@ -130,8 +130,10 @@ try:
     radon_lt_avg = str(sensors.getValue(SENSOR_IDX_RADON_LONG_TERM_AVG))
     temperature  = str(sensors.getValue(SENSOR_IDX_TEMPERATURE))
     
+    data_start_time = int(round(time.time() * 1000)
+    
     data = []
-    data.append(measurement={measurement},humidity={humidity},radon_st_avg={radon_st_avg},radon_lt_avg={radon_lt_avg} temperature={temperature},{timestamp}"
+    data.append(measurement={measurement},humidity={humidity},radon_st_avg={radon_st_avg},radon_lt_avg={radon_lt_avg},temperature={temperature} {timestamp}"
         .format(measurement="waveplus",
                 humidity=humidity,
                 radon_st_avg=radon_st_avg,
