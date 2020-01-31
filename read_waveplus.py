@@ -138,8 +138,9 @@ try:
     data_start_time = int(round(time.time() * 1000))
 
     data = []
-    data.append("{measurement},humidity={humidity},radon_st_avg={radon_st_avg},radon_lt_avg={radon_lt_avg},temperature={temperature}"
+    data.append("{measurement},location={location} humidity={humidity},radon_st_avg={radon_st_avg},radon_lt_avg={radon_lt_avg},temperature={temperature}"
         .format(measurement="waveplus",
+                location="basement",
                 humidity=humidity,
                 radon_st_avg=radon_st_avg,
                 radon_lt_avg=radon_lt_avg,
